@@ -70,32 +70,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="28dp"
-            app:layout_constraintBottom_toTopOf="@id/request_for_membership_btn"/>
+            app:layout_constraintBottom_toTopOf="@id/approval_btn"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/request_for_membership_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/button_style_black_smaller"
-            android:fontFamily="@font/inter_semi_bold"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/request_for_membership"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/existing_member_btn"
+            android:id="@+id/approval_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
             android:background="@drawable/button_style_white_smaller"
             android:fontFamily="@font/inter_semi_bold"
             android:paddingStart="8dp"
@@ -106,6 +87,7 @@
             android:textColor="#151515"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

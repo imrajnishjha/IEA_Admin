@@ -25,9 +25,7 @@ public class explore_us extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore_us);
 
-        join_now = findViewById(R.id.join_now);
 
-        join_now.setOnClickListener(view -> startActivity(new Intent(explore_us.this, Registration.class)));
 
         exploreUsBackButton = findViewById(R.id.exploreus_back_button);
         exploreUsContactUsCard  = findViewById(R.id.explore_us_contact_us_card);

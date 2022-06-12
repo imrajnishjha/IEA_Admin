@@ -1,13 +1,13 @@
 package com.example.ieaapp;
 
 public class UserRegistrationHelperClass {
-    String fullname, email, phoneNo, companyName, Department, Turnover,imageUrl;
+    String fullname, email, phoneNo, companyName, Department, Turnover,imageUrl,amounutLeft;
 
     public  UserRegistrationHelperClass(){
 
     }
 
-    public UserRegistrationHelperClass(String fullname, String email, String phoneNo, String companyName, String department, String turnover, String imageUrl) {
+    public UserRegistrationHelperClass(String fullname, String email, String phoneNo, String companyName, String department, String turnover, String imageUrl, String amounutLeft) {
         this.fullname = fullname;
         this.email = email;
         this.phoneNo = phoneNo;
@@ -15,6 +15,15 @@ public class UserRegistrationHelperClass {
         Department = department;
         Turnover = turnover;
         this.imageUrl = imageUrl;
+        this.amounutLeft = amounutLeft;
+    }
+
+    public String getAmounutLeft() {
+        return amounutLeft;
+    }
+
+    public void setAmounutLeft(String amounutLeft) {
+        this.amounutLeft = amounutLeft;
     }
 
     public String getImageUrl() {

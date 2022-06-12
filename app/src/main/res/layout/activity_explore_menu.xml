@@ -306,7 +306,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/refer"
+                android:id="@+id/new_member"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
@@ -333,7 +333,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="60dp"
-                    android:text="Refer"
+                    android:text="New Members"
                     android:textColor="#000"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -353,7 +353,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="100dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Run hassle free Business"
+                    android:text="Approve New Members"
                     android:textColor="@color/different_black"
                     android:textSize="9sp" />
 
@@ -420,7 +420,7 @@
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:layout_below="@id/refer"
+                android:layout_below="@id/new_member"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"

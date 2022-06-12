@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IEA App</string>
+    <string name="app_name">IEA Admin</string>
     <string name="explore_us_amp_explore_solutions_for_your_industrial_problems"><![CDATA[Explore Us & Explore Solutions for your Industrial Problems]]></string>
     <string name="explore_us">Explore Us</string>
     <string name="request_for_membership">Request For Membership</string>
@@ -37,7 +37,6 @@
     <string name="overview">Creating a social platform for entrepreneurs to connect and to grow their businesses.\nCreating a network of local entrepreneurs.\nBuilding capacity by curating and sharing knowledge.\nEmpowering Youth, Innovation and Startups\nCreating an industry-enterprise ecosystem that is both positive and supportive.</string>
 
     <string-array name="paymethod">
-        <item>Online payment via UPI or Card,Netbanking </item>
         <item>Manual Transfer via NEFT or BANK Transfer </item>
         <item>Physical Method Via Cheque or Cash </item>
     </string-array>

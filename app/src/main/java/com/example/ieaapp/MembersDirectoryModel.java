@@ -15,6 +15,8 @@ public class MembersDirectoryModel {
         this.department = department;
     }
 
+
+
     public String getCompanyName() {
         return companyName;
     }

@@ -34,7 +34,7 @@ public class explore_menu extends AppCompatActivity {
     FirebaseAuth mAuth;
     TextView exploreUsername, descriptionUsername;
     ImageView logoutImg, userImage;
-    CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, refer;
+    CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, newMembers,bbas;
     Dialog exploreIeaContactDialog;
     DatabaseReference databaseReference;
     StorageReference storageProfilePicReference;
@@ -51,7 +51,8 @@ public class explore_menu extends AppCompatActivity {
         memberDirectoryCard = findViewById(R.id.member_directory);
         grievanceCard = findViewById(R.id.grievance);
         contactUs = findViewById(R.id.explore_menu_contact_us_cardView);
-        refer = findViewById(R.id.refer);
+        newMembers = findViewById(R.id.new_member);
+        bbas = findViewById(R.id.bbas);
         exploreIeaContactDialog = new Dialog(this);
         userImage = findViewById(R.id.user_img);
 
@@ -108,7 +109,9 @@ public class explore_menu extends AppCompatActivity {
 
         grievanceCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Grievance.class)));
 
-        refer.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Refer.class)));
+        newMembers.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, member_approval.class)));
+
+
 
         contactUs.setOnClickListener(view -> {
             LayoutInflater inflater = getLayoutInflater();
