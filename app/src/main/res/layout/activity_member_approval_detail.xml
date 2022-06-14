@@ -262,6 +262,38 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/member_approval_paymentReceiverr_heading"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/inriasans_regular"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:text="PERSON RECEIVING THE PAYMENT"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_member_payinglater"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_member_paymentReceiver"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/edittext_style_white_smaller"
+            android:fontFamily="@font/inriasans_regular"
+            android:importantForAutofill="no"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/member_approval_paymentReceiverr_heading"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/member_approval_phoneno_heading"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
@@ -272,7 +304,7 @@
             android:text="CONTACT NO."
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/new_member_payinglater"/>
+            app:layout_constraintTop_toBottomOf="@id/new_member_paymentReceiver"/>
 
 
 

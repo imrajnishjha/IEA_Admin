@@ -28,7 +28,7 @@ import java.io.ByteArrayOutputStream;
 
 public class memberApprovalDetail extends AppCompatActivity {
 
-    TextView newMemberName,newMemberEmail,newMemberCompany,newMemberTurnover,newMemberIndustry,newMemberMembership,newMemberAmountLeft,newMemberContact;
+    TextView newMemberName,newMemberEmail,newMemberCompany,newMemberTurnover,newMemberIndustry,newMemberMembership,newMemberAmountLeft,newMemberContact,newMemberPaymentReceiver;
     ImageView newMemberPayProof;
     DatabaseReference databaseReference;
     AppCompatButton approvalbackbtn,approveBtn;
@@ -36,7 +36,7 @@ public class memberApprovalDetail extends AppCompatActivity {
     DatabaseReference memberDirectoryRef,registrationDataRef,tempRegistrationData;
     StorageReference defaultProfilePicReference,newReference;
 
-    String newName,newEmail,newCompany,newIndustry,newAmountLeft,newphoneno,newProofUrl,newTurnover,newMembership;
+    String newName,newEmail,newCompany,newIndustry,newAmountLeft,newphoneno,newProofUrl,newTurnover,newMembership,newpaymentReceiver;
 
     String joiningDate,nullString;
     Uri imageUri;
@@ -62,6 +62,7 @@ public class memberApprovalDetail extends AppCompatActivity {
         newMemberAmountLeft=findViewById(R.id.new_member_payinglater);
         newMemberContact=findViewById(R.id.new_member_phoneno);
         newMemberPayProof=findViewById(R.id.new_member_proof_img);
+        newMemberPaymentReceiver=findViewById(R.id.new_member_paymentReceiver);
 
         approvalbackbtn=findViewById(R.id.approvalDetail_back_button);
         approveBtn=findViewById(R.id.approval_btn);
@@ -84,6 +85,7 @@ public class memberApprovalDetail extends AppCompatActivity {
                     newAmountLeft = snapshot.child("amountLeft").getValue().toString();
                     newphoneno  = snapshot.child("phoneNo").getValue().toString();
                     newProofUrl = snapshot.child("imageUrl").getValue().toString();
+                    newpaymentReceiver=snapshot.child("paymentReceiverName").getValue().toString();
 
                     newMemberName.setText(newName);
                     newMemberEmail.setText(newEmail);
@@ -93,6 +95,7 @@ public class memberApprovalDetail extends AppCompatActivity {
                     newMemberContact.setText(newphoneno);
                     newMemberTurnover.setText(newTurnover);
                     newMemberMembership.setText(newMembership);
+                    newMemberPaymentReceiver.setText(newpaymentReceiver);
 
                     Glide.with(newMemberPayProof.getContext())
                             .load(newProofUrl)
@@ -116,7 +119,7 @@ public class memberApprovalDetail extends AppCompatActivity {
                 memberDirectoryRef = memberDirectoryRoot.getReference("Registered Users");
                 registrationDataRef = memberDirectoryRoot.getReference("Registration Data");
                 tempRegistrationData = memberDirectoryRoot.getReference("Temp Registry").child(newEmail.replaceAll("\\.", "%7"));
-                RegistrationDataModel approveRegistrationData = new RegistrationDataModel(newMembership, newTurnover, newProofUrl, newEmail,newAmountLeft,newIndustry);
+                RegistrationDataModel approveRegistrationData = new RegistrationDataModel(newMembership, newTurnover, newProofUrl, newEmail,newAmountLeft,newIndustry,newpaymentReceiver);
 
 
                 StorageReference fileRef = defaultProfilePicReference.child("User Profile Pictures/"+newEmail+"ProfilePicture");
@@ -146,13 +149,8 @@ public class memberApprovalDetail extends AppCompatActivity {
 
                     }
                 });
-
-
-
-
-
+                finish();
             }
         });
-
     }
 }

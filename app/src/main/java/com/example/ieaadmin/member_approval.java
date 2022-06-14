@@ -75,6 +75,12 @@ public class member_approval extends AppCompatActivity {
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        approvalAdapter.startListening();
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         approvalAdapter.stopListening();
