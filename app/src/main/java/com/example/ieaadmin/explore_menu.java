@@ -34,7 +34,7 @@ public class explore_menu extends AppCompatActivity {
     FirebaseAuth mAuth;
     TextView exploreUsername, descriptionUsername;
     ImageView logoutImg, userImage;
-    CardView coreMembersCard, memberDirectoryCard, grievanceCard, contactUs, newMembers,bbas;
+    CardView  memberDirectoryCard, grievanceCard, newMembers,bbas;
     Dialog exploreIeaContactDialog;
     DatabaseReference databaseReference;
     StorageReference storageProfilePicReference;
@@ -47,10 +47,8 @@ public class explore_menu extends AppCompatActivity {
         exploreUsername = findViewById(R.id.explore_username);
         descriptionUsername = findViewById(R.id.description_username);
         logoutImg = findViewById(R.id.logout_img);
-        coreMembersCard = findViewById(R.id.core_mem);
         memberDirectoryCard = findViewById(R.id.member_directory);
         grievanceCard = findViewById(R.id.grievance);
-        contactUs = findViewById(R.id.explore_menu_contact_us_cardView);
         newMembers = findViewById(R.id.new_member);
         bbas = findViewById(R.id.bbas);
         exploreIeaContactDialog = new Dialog(this);
@@ -95,15 +93,13 @@ public class explore_menu extends AppCompatActivity {
             }
         });
 
-        CardView explore = (CardView) findViewById(R.id.explore);
-        explore.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, explore_iea.class)));
+
 
         logoutImg.setOnClickListener(view -> {
             mAuth.signOut();
             finish();
         });
 
-        coreMembersCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, CoreTeamMembers.class)));
 
         memberDirectoryCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MembersDirectory.class)));
 
@@ -112,15 +108,6 @@ public class explore_menu extends AppCompatActivity {
         newMembers.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, member_approval.class)));
 
 
-
-        contactUs.setOnClickListener(view -> {
-            LayoutInflater inflater = getLayoutInflater();
-            @SuppressLint("InflateParams") View exploreUsView = inflater.inflate(R.layout.support_contact_popup, null);
-
-            exploreIeaContactDialog.setContentView(exploreUsView);
-            exploreIeaContactDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            exploreIeaContactDialog.show();
-        });
 
         userImage.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, UserProfile.class)));
 

@@ -19,6 +19,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,6 +56,7 @@ public class UserProfile extends AppCompatActivity {
     EditText userContactNumberEdtTxt, userDateOfBirthEdtTxt, userEmailEdtTxt, userCompanyNameEdtTxt, userAddressEdtTxt;
     AppCompatButton saveProfileBtn;
     ActivityResultLauncher<String> mGetContent;
+    TextInputEditText userBioEditText;
 
     StorageReference storageProfilePicReference;
 
@@ -73,6 +75,7 @@ public class UserProfile extends AppCompatActivity {
         userCompanyNameEdtTxt = findViewById(R.id.user_profile_company_name_edtTxt);
         userAddressEdtTxt = findViewById(R.id.user_profile_address_edtTxt);
         saveProfileBtn = findViewById(R.id.user_profile_save_button);
+        userBioEditText = findViewById(R.id.user_bio_input_edttxt);
 
         storageProfilePicReference = FirebaseStorage.getInstance().getReference();
 
@@ -122,6 +125,9 @@ public class UserProfile extends AppCompatActivity {
                 String userAddressStr = Objects.requireNonNull(dataSnapshot.child("address").getValue()).toString();
                 userAddressEdtTxt.setText(userAddressStr);
 
+                String userBioStr = Objects.requireNonNull(dataSnapshot.child("description").getValue()).toString();
+                userBioEditText.setText(userBioStr);
+
                 String corePictureUrl = Objects.requireNonNull(dataSnapshot.child("purl").getValue()).toString();
                 Glide.with(userProfileImage.getContext())
                         .load(corePictureUrl)
@@ -142,8 +148,9 @@ public class UserProfile extends AppCompatActivity {
             String userDOBStr = userDateOfBirthEdtTxt.getText().toString();
             String userCompanyNameStr = userCompanyNameEdtTxt.getText().toString();
             String userAddressStr = userAddressEdtTxt.getText().toString();
+            String userBioStr = userBioEditText.getText().toString();
 
-            updateData(userContactNumberStr, userDOBStr, userCompanyNameStr, userAddressStr);
+            updateData(userContactNumberStr, userDOBStr, userCompanyNameStr, userAddressStr, userBioStr);
 
             if(resultUri != null){
                 uploadImageToFirebase(resultUri);
@@ -166,12 +173,13 @@ public class UserProfile extends AppCompatActivity {
 
     }
 
-    private void updateData(String userContactNumberStr, String userDOBStr, String userCompanyNameStr, String userAddressStr) {
+    private void updateData(String userContactNumberStr, String userDOBStr, String userCompanyNameStr, String userAddressStr, String userBioStr) {
         HashMap UserData = new HashMap();
         UserData.put("phone_number", userContactNumberStr);
         UserData.put("date_of_birth", userDOBStr);
         UserData.put("company_name", userCompanyNameStr);
         UserData.put("address", userAddressStr);
+        UserData.put("description", userBioStr);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Registered Users/" + userEmailConverted);
         databaseReference.updateChildren(UserData).addOnSuccessListener(new OnSuccessListener() {

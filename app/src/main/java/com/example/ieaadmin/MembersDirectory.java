@@ -28,7 +28,7 @@ public class MembersDirectory extends AppCompatActivity{
         setContentView(R.layout.activity_members_directory);
 
         memberDirectoryRecyclerView = (RecyclerView) findViewById(R.id.members_directory_recycler_view);
-        memberDirectoryRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this));
+        memberDirectoryRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         memberDirectoryBackButton = findViewById(R.id.members_directory_back_button);
 
         options = new FirebaseRecyclerOptions.Builder<MembersDirectoryModel>()

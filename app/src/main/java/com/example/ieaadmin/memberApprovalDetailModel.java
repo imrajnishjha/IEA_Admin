@@ -1,13 +1,13 @@
 package com.example.ieaadmin;
 
 public class memberApprovalDetailModel {
-    String address, company_name, date_of_birth, date_of_membership, email, member_id, name, phone_number, purl;
+    String address, company_name, date_of_birth, date_of_membership, email, member_id, name, phone_number, purl, description;
 
     memberApprovalDetailModel(){
 
     }
 
-    public memberApprovalDetailModel(String address, String company_name, String date_of_birth, String date_of_membership, String email, String member_id, String name, String phone_number, String purl) {
+    public memberApprovalDetailModel(String address, String company_name, String date_of_birth, String date_of_membership, String email, String member_id, String name, String phone_number, String purl, String description) {
         this.address = address;
         this.company_name = company_name;
         this.date_of_birth = date_of_birth;
@@ -17,6 +17,7 @@ public class memberApprovalDetailModel {
         this.name = name;
         this.phone_number = phone_number;
         this.purl = purl;
+        this.description = description;
     }
 
     public String getAddress() {
@@ -89,5 +90,13 @@ public class memberApprovalDetailModel {
 
     public void setPurl(String purl) {
         this.purl = purl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

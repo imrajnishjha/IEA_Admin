@@ -14,7 +14,7 @@
     <string name="annual_turnover">Annual Turnover</string>
     <string name="rs_9_999_yearly_including_gst">Rs. 9,999 / Yearly *including gst*</string>
     <string name="login">Login</string>
-    <string name="password">Password</string>
+    <string name="password">Password(Minimum 6 digits)</string>
     <string name="sign_in">Sign In</string>
     <string name="core_team_member">Core Team Members</string>
     <string name="dummy_text_short">Ipsum Laura travel deuhq guanns jhasha uoptio araem</string>

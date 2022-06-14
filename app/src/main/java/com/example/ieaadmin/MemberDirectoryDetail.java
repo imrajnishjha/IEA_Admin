@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MemberDirectoryDetail extends AppCompatActivity {
     ImageView memberProfileImage;
-    TextView memberProfileName, memberMembershipId, memberMembershipDate, memberContactNumber, memberDateOfBirth, memberEmailTxtView, memberCompanyName, memberAddress;
+    TextView memberProfileName, memberMembershipId, memberMembershipDate, memberContactNumber, memberDateOfBirth, memberEmailTxtView, memberCompanyName, memberAddress, memberBio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class MemberDirectoryDetail extends AppCompatActivity {
         memberEmailTxtView = findViewById(R.id.member_email);
         memberCompanyName = findViewById(R.id.member_company_name);
         memberAddress = findViewById(R.id.member_address);
+        memberBio = findViewById(R.id.member_bio);
 
         String coreItemKey = getIntent().getStringExtra("MemberItemKey");
 
@@ -50,6 +51,7 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                     String memberAddressStr = snapshot.child("address").getValue().toString();
                     String memberNameStr = snapshot.child("name").getValue().toString();
                     String memberPictureUrl = snapshot.child("purl").getValue().toString();
+                    String memberBioStr = snapshot.child("description").getValue().toString();
 
                     memberMembershipId.setText(memberMembershipIdStr);
                     memberMembershipDate.setText(memberMembershipDateStr);
@@ -59,6 +61,7 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                     memberCompanyName.setText(memberCompanyNameStr);
                     memberAddress.setText(memberAddressStr);
                     memberProfileName.setText(memberNameStr);
+                    memberBio.setText(memberBioStr);
 
                     Glide.with(memberProfileImage.getContext())
                             .load(memberPictureUrl)

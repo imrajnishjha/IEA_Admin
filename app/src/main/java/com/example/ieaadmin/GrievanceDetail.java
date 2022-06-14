@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class GrievanceDetail extends AppCompatActivity {
 
@@ -22,6 +24,10 @@ public class GrievanceDetail extends AppCompatActivity {
 
     TextView grievanceEmailTv, grievanceDepartmentTv, grievanceStatusTv, grievanceDescriptionTv;
     AppCompatButton onProgressBtn, solvedBtn;
+    FirebaseDatabase solvedGrievanceRoot;
+    DatabaseReference solvedGrievanceRef;
+    FirebaseAuth mAuth;
+    String grievanceEmailStr,grievanceDepartmentStr,grievanceDescriptionStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +49,9 @@ public class GrievanceDetail extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    String grievanceEmailStr = snapshot.child("email").getValue().toString();
-                    String grievanceDepartmentStr = snapshot.child("department").getValue().toString();
-                    String grievanceDescriptionStr = snapshot.child("complain").getValue().toString();
+                     grievanceEmailStr = snapshot.child("email").getValue().toString();
+                     grievanceDepartmentStr = snapshot.child("department").getValue().toString();
+                     grievanceDescriptionStr = snapshot.child("complain").getValue().toString();
                     String grievanceStatusStr = snapshot.child("status").getValue().toString();
 
                     grievanceEmailTv.setText("User: "+grievanceEmailStr);
@@ -86,6 +92,16 @@ public class GrievanceDetail extends AppCompatActivity {
             grievanceStatusHash.put("status", "Solved");
 
             ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
+
+
+            mAuth = FirebaseAuth.getInstance();
+            solvedGrievanceRoot = FirebaseDatabase.getInstance();
+            solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
+                    .child(UUID.randomUUID().toString());
+            GrievanceModel solvedmodel=new GrievanceModel(grievanceDescriptionStr,grievanceDepartmentStr,grievanceEmailStr,"solved");
+            solvedGrievanceRef.setValue(solvedmodel);
+
+
         });
     }
 }

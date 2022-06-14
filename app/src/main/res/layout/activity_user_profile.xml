@@ -258,7 +258,8 @@
             app:layout_constraintTop_toBottomOf="@id/user_profile_email_edtTxt"
             tools:ignore="HardcodedText"
             android:textColor="@color/black"
-            android:backgroundTint="@color/black"/>
+            android:backgroundTint="@color/grey"
+            android:focusable="false"/>
 
         <ImageView
             android:layout_width="40dp"
@@ -286,13 +287,44 @@
             android:textColor="@color/black"
             android:backgroundTint="@color/black"/>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_bio_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:background="#F5F5F5"
+            android:hint="Tell us about yourself"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_profile_address_edtTxt"
+            app:layout_constraintBottom_toBottomOf="@id/user_profile_null_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/user_bio_input_edttxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="false"
+                android:background="@drawable/edittext_style_white_smaller"
+                android:fontFamily="@font/inter_regular"
+                android:gravity="start|top"
+                android:imeOptions="actionDone"
+                android:inputType="textMultiLine|textCapSentences"
+                android:minLines="2"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
             android:id="@+id/user_profile_null_text"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_profile_address_edtTxt"
+            app:layout_constraintTop_toBottomOf="@id/user_bio_input_layout"
             app:layout_constraintBottom_toTopOf="@id/user_profile_save_button"/>
 
         <androidx.appcompat.widget.AppCompatButton

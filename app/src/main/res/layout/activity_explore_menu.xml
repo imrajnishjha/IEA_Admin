@@ -93,94 +93,15 @@
             app:layout_constraintTop_toBottomOf="@id/logout_text" />
 
 
-        <RelativeLayout
-            android:id="@+id/activebar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/round_corner2"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            app:layout_constraintTop_toBottomOf="@id/welcome_text">
-
-            <TextView
-                android:id="@+id/active_text"
-                android:layout_width="170dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/round_corner"
-                android:gravity="center"
-                android:text="Active"
-                android:textColor="#00F10A"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/solved_text"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginStart="200dp"
-                android:layout_marginTop="12.5dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="#14FFFFFF"
-                android:gravity="center"
-                android:text="Solved"
-                android:textColor="#10ADF4"
-                android:textSize="14sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:background="@drawable/round_corner3"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="45dp"
-            android:id="@+id/activeval"
-            app:layout_constraintTop_toTopOf="@id/activebar">
-
-            <TextView
-                android:id="@+id/active_value"
-                android:layout_width="130dp"
-                android:layout_height="90dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="13dp"
-                android:background="@drawable/round_corner"
-                android:gravity="center"
-                android:text="2"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/solved_value"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginStart="200dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="20dp"
-                android:background="#03C1BEBE"
-                android:gravity="center"
-                android:text="12"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-
-        </RelativeLayout>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="30dp"
             android:background="@drawable/round_corner"
-            app:layout_constraintTop_toBottomOf="@id/activeval">
+            tools:layout_editor_absoluteX="12dp"
+            android:layout_marginTop="20dp"
+            tools:layout_editor_absoluteY="312dp"
+            app:layout_constraintTop_toBottomOf="@+id/welcome_text">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/description_img"
@@ -215,8 +136,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Short Description"
                 android:layout_marginTop="8dp"
+                android:text="Short Description"
                 android:textColor="@color/different_black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/description_username" />
@@ -226,16 +147,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:paddingBottom="8dp"
                 android:text="My name is Rajnish Ranjan.My compnany is about Quality if life fdsf sdgsdf sdfg sdgf sdfgsdg sdfgdsfg sdgdsfga sdgdsg sgasraewtg  uhjk hjkhkj kjhk kjn iusakjfh saiuhg lhj iu vear aerg v aag sdfb eagb agvdsf."
                 android:textColor="@color/different_black"
                 android:textSize="9sp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/short_descriptio_text"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/short_descriptio_text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -244,68 +165,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/description"
-            android:rowCount="4"
+            android:rowCount="3"
             android:columnCount="2"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@+id/conslayout"
             app:layout_constraintStart_toStartOf="@+id/conslayout"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/core_mem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/white"
-                    android:src="@drawable/coreteam" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="60dp"
-                    android:text="Functional Team"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Head Department Members"
-                    android:textColor="@color/different_black"
-                    android:textSize="9sp" />
-
-            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/new_member"
@@ -313,11 +182,9 @@
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="10dp"
+                android:layout_alignParentStart="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@id/core_mem"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp">
@@ -335,7 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="60dp"
-                    android:text="New Members"
+                    android:text="New Members        "
                     android:textColor="#000"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -345,72 +212,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
                     android:layout_marginBottom="10dp"
                     android:text="Approve New Members"
-                    android:textColor="@color/different_black"
-                    android:textSize="9sp" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/explore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_below="@id/core_mem"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/white"
-                    android:src="@drawable/explore" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="60dp"
-                    android:text="Explore IEA"
-                    android:textColor="#000"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Know more about us"
                     android:textColor="@color/different_black"
                     android:textSize="9sp" />
 
@@ -422,12 +225,11 @@
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:layout_below="@id/new_member"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@id/explore"
+                android:layout_toEndOf="@id/new_member"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp">
@@ -455,15 +257,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
                     android:layout_marginBottom="10dp"
                     android:text="Explore other member"
                     android:textColor="@color/different_black"
@@ -478,10 +271,9 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 app:cardBackgroundColor="@color/white"
-                android:layout_below="@id/explore"
+                android:layout_below="@id/new_member"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp">
@@ -510,15 +302,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
                     android:layout_marginBottom="10dp"
                     android:text="Business of Services"
                     android:textColor="@color/different_black"
@@ -533,7 +316,7 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 app:cardBackgroundColor="@color/white"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
@@ -565,17 +348,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
                     android:layout_marginBottom="10dp"
-                    android:text="File your complaint"
+                    android:text="Handle the complaints"
                     android:textColor="@color/different_black"
                     android:textSize="9sp" />
 
@@ -591,7 +365,6 @@
                 android:layout_below="@id/bbas"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp">
@@ -620,15 +393,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
                     android:layout_marginBottom="10dp"
                     android:text="Need Hands?Post now"
                     android:textColor="@color/different_black"
@@ -643,7 +407,7 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 app:cardBackgroundColor="@color/white"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
@@ -674,15 +438,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="80dp"
-                    android:text="Short Description"
-                    android:textColor="#000"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="100dp"
                     android:layout_marginBottom="10dp"
                     android:text="Meet and Connect with Others"
                     android:textColor="@color/different_black"
@@ -693,54 +448,6 @@
 
 
         </GridLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:id="@+id/explore_menu_contact_us_cardView"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="70dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cards">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Contact Support for Help"
-                android:fontFamily="@font/inriasans_regular"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:layout_margin="5dp"
-                android:textColor="@color/black"/>
-
-
-        </androidx.cardview.widget.CardView>
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/helpimg"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="7dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintStart_toEndOf="@+id/explore_menu_contact_us_cardView"
-            app:layout_constraintTop_toBottomOf="@+id/cards"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="15dp">
-
-            <ImageView
-                android:id="@+id/help_btnr"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/help" />
-
-        </androidx.cardview.widget.CardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="18dp"
-                android:layout_marginTop="33dp"
+                android:layout_marginTop="28dp"
                 android:background="@drawable/back_icon"
                 android:backgroundTint="#F5F5F5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
                 android:fontFamily="@font/poppins_semi_bold"
                 android:text="Functional Team Member"
                 android:textColor="#F5F5F5"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/core_member_detail_back_button"
                 app:layout_constraintTop_toTopOf="parent" />
