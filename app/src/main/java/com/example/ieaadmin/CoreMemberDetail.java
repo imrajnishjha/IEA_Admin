@@ -20,9 +20,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class CoreMemberDetail extends AppCompatActivity {
 
-    TextView coreTeamMemberDetailDesignation, coreTeamMemberDetailName, coreMemberDetailDepartment;
+    TextView coreTeamMemberDetailDesignation, coreTeamMemberDetailName, coreTeamMemberCompanyName, coreTeamMemberAddress;
     ImageView coreTeamMemberDetailProfile;
     AppCompatButton coreTeamMemberContactButton, coreTeamMemberDetailBackButton;
     DatabaseReference databaseReference;
@@ -40,7 +42,8 @@ public class CoreMemberDetail extends AppCompatActivity {
         coreTeamMemberDetailProfile = findViewById(R.id.core_detail_profile_picture);
         coreTeamMemberContactButton = findViewById(R.id.core_detail_contact_button);
         coreTeamMemberDetailBackButton = findViewById(R.id.core_member_detail_back_button);
-        coreMemberDetailDepartment = findViewById(R.id.core_detail_department);
+        coreTeamMemberCompanyName = findViewById(R.id.core_detail_companyName_text);
+        coreTeamMemberAddress = findViewById(R.id.core_detail_address);
 
         coreMemberContactDialog = new Dialog(this);
 
@@ -50,12 +53,16 @@ public class CoreMemberDetail extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    String coreMemberName = snapshot.child("name").getValue().toString();
-                    String coreMemberDesignation = snapshot.child("designation").getValue().toString();
-                    String corePictureUrl = snapshot.child("purl").getValue().toString();
+                    String coreMemberName = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
+                    String coreMemberDesignation = Objects.requireNonNull(snapshot.child("designation").getValue()).toString();
+                    String corePictureUrl = Objects.requireNonNull(snapshot.child("purl").getValue()).toString();
+                    String coreCompanyNameStr = Objects.requireNonNull(snapshot.child("company_name").getValue()).toString();
+                    String coreMemberAddressStr = Objects.requireNonNull(snapshot.child("company_address").getValue()).toString();
 
                     coreTeamMemberDetailName.setText(coreMemberName);
                     coreTeamMemberDetailDesignation.setText(coreMemberDesignation);
+                    coreTeamMemberCompanyName.setText(coreCompanyNameStr);
+                    coreTeamMemberAddress.setText(coreMemberAddressStr);
 
                     Glide.with(coreTeamMemberDetailProfile.getContext())
                             .load(corePictureUrl)
