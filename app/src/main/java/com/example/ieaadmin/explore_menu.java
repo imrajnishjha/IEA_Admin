@@ -84,7 +84,6 @@ public class explore_menu extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String userNameDatabase = Objects.requireNonNull(Objects.requireNonNull(dataSnapshot.child("name").getValue()).toString());
                 exploreUsername.setText(userNameDatabase);
-                descriptionUsername.setText(userNameDatabase);
             }
 
             @Override
