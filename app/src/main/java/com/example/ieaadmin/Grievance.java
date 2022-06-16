@@ -30,8 +30,8 @@ public class Grievance extends AppCompatActivity {
         grievanceBackButton = findViewById(R.id.grievance_back_button);
 
         options = new FirebaseRecyclerOptions.Builder<GrievanceModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Unsolved Grievances"), GrievanceModel.class)
-                        .build();
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Unsolved Grievances"), GrievanceModel.class)
+                .build();
 
         grievanceAdapter = new GrievanceAdapter(options);
         grievanceRecyclerView.setAdapter(grievanceAdapter);

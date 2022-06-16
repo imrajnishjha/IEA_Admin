@@ -41,6 +41,13 @@
         <item>Physical Method Via Cheque or Cash </item>
     </string-array>
 
+    <string-array name="grievanceStatusArray">
+        <item>Under Review</item>
+        <item>On Progress</item>
+        <item>Solved</item>
+        <item>Rejected</item>
+    </string-array>
+
     <string-array name="department">
         <item>Aerospace Industry</item>
         <item>Agriculture industry</item>

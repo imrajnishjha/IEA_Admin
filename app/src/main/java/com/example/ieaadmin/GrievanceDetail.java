@@ -1,12 +1,14 @@
 package com.example.ieaadmin;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.content.ContextCompat;
-
-import android.os.Bundle;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,11 +25,13 @@ public class GrievanceDetail extends AppCompatActivity {
 
 
     TextView grievanceEmailTv, grievanceDepartmentTv, grievanceStatusTv, grievanceDescriptionTv;
-    AppCompatButton onProgressBtn, solvedBtn;
+    AppCompatButton onProgressBtn, solvedBtn, grievanceSetStatusBtn;
     FirebaseDatabase solvedGrievanceRoot;
-    DatabaseReference solvedGrievanceRef;
+    DatabaseReference solvedGrievanceRef, rejectedGrievanceRef;
     FirebaseAuth mAuth;
     String grievanceEmailStr,grievanceDepartmentStr,grievanceDescriptionStr;
+    AutoCompleteTextView grievanceStatusField;
+    String grievanceItemKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +44,20 @@ public class GrievanceDetail extends AppCompatActivity {
         grievanceDepartmentTv = findViewById(R.id.grievance_department_detail_tv);
         grievanceStatusTv = findViewById(R.id.grievance_status_detail_tv);
         grievanceDescriptionTv = findViewById(R.id.grievance_description_detail_tv);
-        onProgressBtn = findViewById(R.id.grievance_on_progress_btn);
-        solvedBtn = findViewById(R.id.grievance_solved_btn);
+        grievanceStatusField = findViewById(R.id.grievance_status_field);
+        grievanceSetStatusBtn = findViewById(R.id.grievance_set_status_btn);
 
-        String grievanceItemKey = getIntent().getStringExtra("GrievanceItemKey");
+        dropdownInit();
+
+        grievanceItemKey = getIntent().getStringExtra("GrievanceItemKey");
 
         ref.child(grievanceItemKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                     grievanceEmailStr = snapshot.child("email").getValue().toString();
-                     grievanceDepartmentStr = snapshot.child("department").getValue().toString();
-                     grievanceDescriptionStr = snapshot.child("complain").getValue().toString();
+                    grievanceEmailStr = snapshot.child("email").getValue().toString();
+                    grievanceDepartmentStr = snapshot.child("department").getValue().toString();
+                    grievanceDescriptionStr = snapshot.child("complain").getValue().toString();
                     String grievanceStatusStr = snapshot.child("status").getValue().toString();
 
                     grievanceEmailTv.setText("User: "+grievanceEmailStr);
@@ -60,9 +66,13 @@ public class GrievanceDetail extends AppCompatActivity {
                     grievanceStatusTv.setText("Status: "+grievanceStatusStr);
 
                     if(grievanceStatusStr.equals("On Progress")){
-                        onProgressBtn.setBackground(ContextCompat.getDrawable(GrievanceDetail.this, R.drawable.button_style_grey));
+                        grievanceStatusField.setHint("On Progress");
                     } else if(grievanceStatusStr.equals("Solved")){
-                        solvedBtn.setBackground(ContextCompat.getDrawable(GrievanceDetail.this, R.drawable.button_style_grey));
+                        grievanceStatusField.setHint("Solved");
+                    }else if(grievanceStatusStr.equals("Under Review")){
+                        grievanceStatusField.setHint("Under Review");
+                    }else if(grievanceStatusStr.equals("Unsolved")){
+                        grievanceStatusField.setHint("Unsolved");
                     }
 
                 }
@@ -74,34 +84,91 @@ public class GrievanceDetail extends AppCompatActivity {
             }
         });
 
-        onProgressBtn.setOnClickListener(view -> {
-            onProgressBtn.setBackground((ContextCompat.getDrawable(GrievanceDetail.this,R.drawable.button_style_grey)));
-            solvedBtn.setBackground((ContextCompat.getDrawable(GrievanceDetail.this,R.drawable.button_style_black)));
+        grievanceSetStatusBtn.setOnClickListener(view -> {
+            if(grievanceStatusField.getText().toString().equals("On Progress")){
+                HashMap grievanceStatusHash = new HashMap();
+                grievanceStatusHash.put("status", "On Progress");
 
-            HashMap grievanceStatusHash = new HashMap();
-            grievanceStatusHash.put("status", "On Progress");
+                ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
 
-            ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
+                solvedGrievanceRoot = FirebaseDatabase.getInstance();
+                solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
+                        .child(grievanceItemKey);
+                solvedGrievanceRef.removeValue();
+                Log.d("On progress", "On progress working");
+            } else if(grievanceStatusField.getText().toString().equals("Under Review")){
+                HashMap grievanceStatusHash = new HashMap();
+                grievanceStatusHash.put("status", "Under Review");
+
+                ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
+
+                solvedGrievanceRoot = FirebaseDatabase.getInstance();
+                solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
+                        .child(grievanceItemKey);
+                solvedGrievanceRef.removeValue();
+                Log.d("On progress", "Under Review working");
+            }else if(grievanceStatusField.getText().toString().equals("Rejected")){
+                HashMap grievanceStatusHash = new HashMap();
+                grievanceStatusHash.put("status", "Rejected");
+
+                ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
+
+                solvedGrievanceRoot = FirebaseDatabase.getInstance();
+                solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
+                        .child(grievanceItemKey);
+                solvedGrievanceRef.removeValue();
+                Log.d("On progress", "Rejected working");
+
+                rejectedGrievanceRef = solvedGrievanceRoot.getReference("Unresolved Grievances").child(grievanceEmailStr.replaceAll("\\.", "%7"))
+                        .child(grievanceItemKey);
+                rejectedGrievanceRef.removeValue();
+                Log.d("Unresolved", "Unresolved removal"+rejectedGrievanceRef);
+            }else if(grievanceStatusField.getText().toString().equals("Solved")){
+                HashMap grievanceStatusHash = new HashMap();
+                grievanceStatusHash.put("status", "Solved");
+
+                ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
+
+                solvedGrievanceRoot = FirebaseDatabase.getInstance();
+                solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
+                        .child(grievanceItemKey);
+                GrievanceModel solvedmodel=new GrievanceModel(grievanceDescriptionStr,grievanceDepartmentStr,grievanceEmailStr,"solved");
+                solvedGrievanceRef.setValue(solvedmodel);
+            }
+
         });
 
-        solvedBtn.setOnClickListener(view -> {
-            solvedBtn.setBackground((ContextCompat.getDrawable(GrievanceDetail.this,R.drawable.button_style_grey)));
-            onProgressBtn.setBackground((ContextCompat.getDrawable(GrievanceDetail.this,R.drawable.button_style_black)));
-
-            HashMap grievanceStatusHash = new HashMap();
-            grievanceStatusHash.put("status", "Solved");
-
-            ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
 
 
-            mAuth = FirebaseAuth.getInstance();
-            solvedGrievanceRoot = FirebaseDatabase.getInstance();
-            solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
-                    .child(UUID.randomUUID().toString());
-            GrievanceModel solvedmodel=new GrievanceModel(grievanceDescriptionStr,grievanceDepartmentStr,grievanceEmailStr,"solved");
-            solvedGrievanceRef.setValue(solvedmodel);
+//        solvedBtn.setOnClickListener(view -> {
+//            solvedBtn.setBackground((ContextCompat.getDrawable(GrievanceDetail.this,R.drawable.button_style_grey)));
+//            onProgressBtn.setBackground((ContextCompat.getDrawable(GrievanceDetail.this,R.drawable.button_style_black)));
+//
+//            HashMap grievanceStatusHash = new HashMap();
+//            grievanceStatusHash.put("status", "Solved");
+//
+//            ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
+//
+//
+//            solvedGrievanceRoot = FirebaseDatabase.getInstance();
+//            solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
+//                    .child(UUID.randomUUID().toString());
+//            GrievanceModel solvedmodel=new GrievanceModel(grievanceDescriptionStr,grievanceDepartmentStr,grievanceEmailStr,"solved");
+//            solvedGrievanceRef.setValue(solvedmodel);
+//
+//        });
+    }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        dropdownInit();
+    }
 
-        });
+    public void dropdownInit() {
+        String[] grievance_departments = getResources().getStringArray(R.array.grievanceStatusArray);
+        ArrayAdapter<String> arrayAdapterDepartments = new ArrayAdapter<>(getBaseContext(), R.layout.drop_down_item, grievance_departments);
+        AutoCompleteTextView autoCompleteTextViewDepartments = findViewById(R.id.grievance_status_field);
+        autoCompleteTextViewDepartments.setAdapter(arrayAdapterDepartments);
     }
 }

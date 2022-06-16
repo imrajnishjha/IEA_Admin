@@ -32,19 +32,34 @@ public class GrievanceAdapter extends FirebaseRecyclerAdapter<GrievanceModel, Gr
 
         switch (model.getStatus()){
             case "Unsolved":
-                holder.grievanceStatusTv.setBackgroundColor(Color.parseColor("#96271f"));
+                holder.grievanceStatusColorTv.setBackgroundColor(Color.parseColor("#000000"));
+                holder.grievanceStatusTv.setText("Unsolved");
                 break;
             case "On Progress":
-                holder.grievanceStatusTv.setBackgroundColor(Color.parseColor("#ED944D"));
+                holder.grievanceStatusColorTv.setBackgroundColor(Color.parseColor("#ED944D"));
+                holder.grievanceStatusTv.setText("On Progress");
                 break;
             case "Solved":
-                holder.grievanceStatusTv.setBackgroundColor(Color.parseColor("#48A14D"));
+                holder.grievanceStatusColorTv.setBackgroundColor(Color.parseColor("#48A14D"));
+                holder.grievanceStatusTv.setText("Solved");
+                break;
+            case "Rejected":
+                holder.grievanceStatusColorTv.setBackgroundColor(Color.parseColor("#96271f"));
+                holder.grievanceStatusTv.setText("Rejected");
+                break;
+            case "Under Review":
+                holder.grievanceStatusColorTv.setBackgroundColor(Color.parseColor("#FEFF9E"));
+                holder.grievanceStatusTv.setText("Under Review");
+                break;
         }
 
         holder.grievanceView.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), GrievanceDetail.class);
-            intent.putExtra("GrievanceItemKey", getRef(position).getKey());
-            view.getContext().startActivity(intent);
+            if(!holder.grievanceStatusTv.getText().toString().equals("Rejected")){
+                Intent intent = new Intent(view.getContext(), GrievanceDetail.class);
+                intent.putExtra("GrievanceItemKey", getRef(position).getKey());
+                view.getContext().startActivity(intent);
+            }
+
         });
     }
 
@@ -58,13 +73,14 @@ public class GrievanceAdapter extends FirebaseRecyclerAdapter<GrievanceModel, Gr
     public class GrievanceViewHolder extends RecyclerView.ViewHolder {
 
         View grievanceView;
-        TextView grievanceEmail, grievanceDepartmentTv, grievanceStatusTv;
+        TextView grievanceEmail, grievanceDepartmentTv, grievanceStatusColorTv, grievanceStatusTv;
         public GrievanceViewHolder(@NonNull View itemView) {
             super(itemView);
 
             grievanceEmail = (TextView) itemView.findViewById(R.id.grievance_email_tv);
             grievanceDepartmentTv = (TextView) itemView.findViewById(R.id.grievance_department_tv);
-            grievanceStatusTv = (TextView) itemView.findViewById(R.id.grievance_status_color_tv);
+            grievanceStatusColorTv = (TextView) itemView.findViewById(R.id.grievance_status_color_tv);
+            grievanceStatusTv = (TextView) itemView.findViewById(R.id.grievance_status_text);
             grievanceView = itemView;
         }
     }

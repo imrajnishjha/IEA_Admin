@@ -70,16 +70,17 @@
 
         <TextView
             android:id="@+id/grievance_description_detail_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/edittext_style_white_smaller"
             android:fontFamily="@font/poppins_regular"
+            android:padding="8dp"
             android:paddingEnd="8dp"
             android:text="Description"
             android:textColor="@color/black"
-            android:padding="8dp"
-            android:background="@drawable/edittext_style_white_smaller"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/grievance_department_detail_tv" />
@@ -88,42 +89,66 @@
             android:id="@+id/grievance_empty_text"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/grievance_on_progress_btn"
+            app:layout_constraintBottom_toTopOf="@id/outbox_grievance_field"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/grievance_description_detail_tv" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/grievance_on_progress_btn"
-            android:layout_width="wrap_content"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outbox_grievance_field"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/button_style_black"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
-            android:text="On Progress"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:background="#F5F5F5"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="2.5dp"
+            app:endIconDrawable="@drawable/ic_down_arrow"
+            app:endIconTint="@color/black"
+            app:hintTextColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/grievance_set_status_btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/grievance_empty_text" />
+            app:layout_constraintTop_toBottomOf="@id/grievance_empty_text">
+
+            <AutoCompleteTextView
+                android:id="@+id/grievance_status_field"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inriasans_regular"
+                android:padding="12dp"
+                android:paddingTop="14dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                app:hintTextColor="@color/black"
+                tools:ignore="HardcodedText" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/grievance_solved_btn"
+            android:id="@+id/grievance_set_status_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
             android:background="@drawable/button_style_black"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
-            android:text="Solved"
+            android:text="Set Status"
+            android:fontFamily="@font/inriasans_regular"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/outbox_grievance_field"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/grievance_empty_text" />
+            app:layout_constraintStart_toEndOf="@id/outbox_grievance_field"
+            app:layout_constraintTop_toTopOf="@id/outbox_grievance_field"
+            tools:ignore="HardcodedText" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
