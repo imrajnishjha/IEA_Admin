@@ -5,10 +5,12 @@
       <map>
         <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/drawable/button_style_grey.xml" value="0.1075" />
         <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/activity_core_member_detail.xml" value="0.21927083333333333" />
+        <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/activity_explore_iea.xml" value="0.21927083333333333" />
         <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/activity_explore_menu.xml" value="0.21927083333333333" />
         <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/activity_grievance.xml" value="0.21927083333333333" />
         <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/activity_grievance_detail.xml" value="0.21927083333333333" />
         <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/activity_landing_page.xml" value="0.14222972972972972" />
+        <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/activity_login.xml" value="0.21927083333333333" />
         <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/activity_member_approval.xml" value="0.21927083333333333" />
         <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/activity_member_approval_detail.xml" value="0.21927083333333333" />
         <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/activity_member_directory_detail.xml" value="0.20208333333333334" />
@@ -19,6 +21,7 @@
         <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/grievance_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/member_approval_item.xml" value="0.21927083333333333" />
         <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/members_directory_item.xml" value="0.21927083333333333" />
+        <entry key="..\:/Android_Apps/IEA_Admin/app/src/main/res/layout/rejection_reason_popup.xml" value="0.21822916666666667" />
         <entry key="..\:/Android_Apps/IEA_App/app/src/main/res/drawable/black_boundry.xml" value="0.1" />
         <entry key="..\:/Android_Apps/IEA_App/app/src/main/res/drawable/button_style.xml" value="0.1075" />
         <entry key="..\:/Android_Apps/IEA_App/app/src/main/res/drawable/button_style_black.xml" value="0.1075" />
@@ -71,6 +74,8 @@
         <entry key="..\:/Users/rajni/AndroidStudioProjects/IEA_Admin/app/src/main/res/layout/core_team_member_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rajni/AndroidStudioProjects/IEA_Admin/app/src/main/res/layout/members_directory_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rajni/AndroidStudioProjects/IEA_Admin/app/src/main/res/layout/newmemberpassword_popup.xml" value="0.203125" />
+        <entry key="..\:/Users/rajni/AndroidStudioProjects/IEA_Admin2/app/src/main/res/layout/activity_member_directory_detail.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/rajni/AndroidStudioProjects/IEA_Admin2/app/src/main/res/layout/activity_user_profile.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rajni/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_core_team_members.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/rajni/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_explore_menu.xml" value="0.33" />
         <entry key="..\:/Users/rajni/AndroidStudioProjects/IEA_App/app/src/main/res/layout/activity_grievance.xml" value="0.20416666666666666" />

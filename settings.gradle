@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
-rootProject.name = "IEA App"
+rootProject.name = "IEA Admin"
 include ':app'

@@ -35,20 +35,19 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 public class memberApprovalDetail extends AppCompatActivity {
 
     TextView newMemberName,newMemberEmail,newMemberCompany,newMemberTurnover,newMemberIndustry,newMemberMembership,newMemberAmountLeft,newMemberContact,newMemberPaymentReceiver,newMemberEmailforAuth;
     ImageView newMemberPayProof;
-    EditText newMemberPassforAuth;
+    EditText newMemberPassforAuth,RejectionReasonText;
     DatabaseReference databaseReference;
-    AppCompatButton approvalbackbtn,approveBtn,authCreatebtn;
+    AppCompatButton approvalbackbtn,approveBtn,authCreatebtn,rejectBtn,rejectionReasonbtn;
     FirebaseDatabase memberDirectoryRoot;
     DatabaseReference memberDirectoryRef,registrationDataRef,tempRegistrationData;
     StorageReference defaultProfilePicReference;
@@ -58,7 +57,7 @@ public class memberApprovalDetail extends AppCompatActivity {
 
     String nullString,email_address,password;
     Uri imageUri;
-    Dialog newMemberIdPassDialog;
+    Dialog newMemberIdPassDialog,RejectionMailDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +68,7 @@ public class memberApprovalDetail extends AppCompatActivity {
         defaultProfilePicReference = FirebaseStorage.getInstance().getReference();
         nullString="";
         newMemberIdPassDialog = new Dialog(this);
+        RejectionMailDialog = new Dialog(this);
 
 
 
@@ -84,8 +84,11 @@ public class memberApprovalDetail extends AppCompatActivity {
         newMemberPayProof=findViewById(R.id.new_member_proof_img);
         newMemberPaymentReceiver=findViewById(R.id.new_member_paymentReceiver);
 
+
+
         approvalbackbtn=findViewById(R.id.approvalDetail_back_button);
         approveBtn=findViewById(R.id.approval_btn);
+        rejectionReasonbtn=findViewById(R.id.rejectionReason_btn);
 
         approvalbackbtn.setOnClickListener(view -> finish());
 
@@ -144,6 +147,8 @@ public class memberApprovalDetail extends AppCompatActivity {
                 newMemberPassforAuth = view.findViewById(R.id.newApprove_member_password);
                 authCreatebtn = view.findViewById(R.id.create_password_btn);
                 newMemberEmailforAuth.setText(newEmail);
+                String automaticPassword = autoPassowrd(newName);
+                newMemberPassforAuth.setText(automaticPassword);
                 newMemberIdPassDialog.setContentView(view);
                 newMemberIdPassDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 newMemberIdPassDialog.show();
@@ -172,6 +177,38 @@ public class memberApprovalDetail extends AppCompatActivity {
             }
         });
 
+        rejectionReasonbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = getLayoutInflater();
+                View view = inflater.inflate(R.layout.rejection_reason_popup, null);
+                RejectionReasonText = view.findViewById(R.id.rejectionReason_text);
+                rejectBtn = view.findViewById(R.id.rejection_btn);
+                RejectionMailDialog.setContentView(view);
+                RejectionMailDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                RejectionMailDialog.show();
+                rejectBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(!RejectionReasonText.getText().toString().isEmpty()){
+                            String rejectionReason = RejectionReasonText.getText().toString();
+                            sendRejectionEmail(rejectionReason);
+                            memberDirectoryRoot = FirebaseDatabase.getInstance();
+                            tempRegistrationData = memberDirectoryRoot.getReference("Temp Registry").child(newEmail.replaceAll("\\.", "%7"));
+                            tempRegistrationData.removeValue();
+                            finish();
+
+                        } else {
+                            RejectionReasonText.setError("Reason can not be empty");
+                            RejectionReasonText.requestFocus();
+                        }
+
+
+                    }
+                });
+
+            }
+        });
 
 
 
@@ -207,7 +244,7 @@ public class memberApprovalDetail extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void unused) {
                                 tempRegistrationData.removeValue();
-                                sendEmail();
+                                sendAcceptanceEmail();
                                 Toast.makeText(memberApprovalDetail.this, "Member Approved", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -220,7 +257,7 @@ public class memberApprovalDetail extends AppCompatActivity {
     }
 
     @SuppressLint("IntentReset")
-    protected void sendEmail() {
+    protected void sendAcceptanceEmail() {
 
         password = newMemberPassforAuth.getText().toString();
         email_address = newMemberEmailforAuth.getText().toString();
@@ -242,4 +279,44 @@ public class memberApprovalDetail extends AppCompatActivity {
                     "There is no email client installed.", Toast.LENGTH_SHORT).show();
         }
     }
+    @SuppressLint("IntentReset")
+    protected void sendRejectionEmail(String rejectionReason) {
+
+
+        Log.i("Send email", "");
+
+        String[] TO = {newEmail};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "IEA Membership Rejected");
+        emailIntent.putExtra(Intent.EXTRA_TEXT,"Your membership got rejected due to following reason \n\n"+rejectionReason );
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(memberApprovalDetail.this,
+                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public String autoPassowrd(String name){
+        String Alphabet="abcdefghijaklmnopqrstuvwxyz";
+        StringBuilder randomPass = new StringBuilder();
+        Random random = new Random();
+        int length =4;
+        for(int i=0;i<length;i++){
+            int index = random.nextInt(Alphabet.length());
+            char randomChar1 = Alphabet.charAt(index);
+            randomPass.append(randomChar1);
+        }
+        for(int i=0;i<4;i++){
+            char randomChar2 = name.charAt(i);
+            randomPass.append(randomChar2);
+        }
+        return randomPass.toString();
+    }
+
 }

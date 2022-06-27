@@ -19,18 +19,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
-import java.util.UUID;
+import java.util.Objects;
 
 public class GrievanceDetail extends AppCompatActivity {
 
 
-
     TextView grievanceEmailTv, grievanceDepartmentTv, grievanceStatusTv, grievanceDescriptionTv;
-    AppCompatButton onProgressBtn, solvedBtn, grievanceSetStatusBtn;
+    AppCompatButton grievanceSetStatusBtn;
     FirebaseDatabase solvedGrievanceRoot;
     DatabaseReference solvedGrievanceRef, rejectedGrievanceRef, ref2;
-    FirebaseAuth mAuth;
-    String grievanceEmailStr,grievanceDepartmentStr,grievanceDescriptionStr;
+    String grievanceEmailStr, grievanceDepartmentStr, grievanceDescriptionStr;
     AutoCompleteTextView grievanceStatusField;
     String grievanceItemKey;
 
@@ -40,7 +38,6 @@ public class GrievanceDetail extends AppCompatActivity {
         setContentView(R.layout.activity_grievance_detail);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Unsolved Grievances");
-
 
 
         grievanceEmailTv = findViewById(R.id.grievance_email_detail_tv);
@@ -57,7 +54,7 @@ public class GrievanceDetail extends AppCompatActivity {
         ref.child(grievanceItemKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     grievanceEmailStr = snapshot.child("email").getValue().toString();
                     grievanceDepartmentStr = snapshot.child("department").getValue().toString();
                     grievanceDescriptionStr = snapshot.child("complain").getValue().toString();
@@ -65,20 +62,20 @@ public class GrievanceDetail extends AppCompatActivity {
 
                     Log.d("Email string", grievanceEmailStr);
 
-                     ref2 = FirebaseDatabase.getInstance().getReference().child("Unresolved Grievances").child(grievanceEmailStr.replaceAll("\\.", "%7"));
+                    ref2 = FirebaseDatabase.getInstance().getReference().child("Unresolved Grievances").child(grievanceEmailStr.replaceAll("\\.", "%7"));
 
-                    grievanceEmailTv.setText("User: "+grievanceEmailStr);
+                    grievanceEmailTv.setText("User: " + grievanceEmailStr);
                     grievanceDescriptionTv.setText(grievanceDescriptionStr);
-                    grievanceDepartmentTv.setText("Department: "+grievanceDepartmentStr);
-                    grievanceStatusTv.setText("Status: "+grievanceStatusStr);
+                    grievanceDepartmentTv.setText("Department: " + grievanceDepartmentStr);
+                    grievanceStatusTv.setText("Status: " + grievanceStatusStr);
 
-                    if(grievanceStatusStr.equals("On Progress")){
+                    if (grievanceStatusStr.equals("On Progress")) {
                         grievanceStatusField.setHint("On Progress");
-                    } else if(grievanceStatusStr.equals("Solved")){
+                    } else if (grievanceStatusStr.equals("Solved")) {
                         grievanceStatusField.setHint("Solved");
-                    }else if(grievanceStatusStr.equals("Under Review")){
+                    } else if (grievanceStatusStr.equals("Under Review")) {
                         grievanceStatusField.setHint("Under Review");
-                    }else if(grievanceStatusStr.equals("Unsolved")){
+                    } else if (grievanceStatusStr.equals("Unsolved")) {
                         grievanceStatusField.setHint("Unsolved");
                     }
 
@@ -91,43 +88,66 @@ public class GrievanceDetail extends AppCompatActivity {
             }
         });
 
+        final String[] grievanceStatus = new String[1];
+
+        FirebaseDatabase.getInstance().getReference().child("Unsolved Grievances").child(grievanceItemKey).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                grievanceStatus[0] = Objects.requireNonNull(snapshot.child("status").getValue()).toString();
+                Log.d("Grievance Status", "Grievance Status = " + grievanceStatus[0]);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         grievanceSetStatusBtn.setOnClickListener(view -> {
-            if(grievanceStatusField.getText().toString().equals("On Progress")){
+            Boolean sendNotification = false;
+
+
+            if (grievanceStatusField.getText().toString().equals("On Progress") && !grievanceStatus[0].equals("On Progress")) {
                 HashMap grievanceStatusHash = new HashMap();
                 grievanceStatusHash.put("status", "On Progress");
 
                 ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
                 ref2.child(grievanceItemKey).updateChildren(grievanceStatusHash);
 
+                sendNotification = true;
+
                 solvedGrievanceRoot = FirebaseDatabase.getInstance();
                 solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
                         .child(grievanceItemKey);
                 solvedGrievanceRef.removeValue();
                 Log.d("On progress", "On progress working");
-            } else if(grievanceStatusField.getText().toString().equals("Under Review")){
+            } else if (grievanceStatusField.getText().toString().equals("Under Review") && !grievanceStatus[0].equals("Under Review")) {
                 HashMap grievanceStatusHash = new HashMap();
                 grievanceStatusHash.put("status", "Under Review");
 
                 ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
                 ref2.child(grievanceItemKey).updateChildren(grievanceStatusHash);
 
+                sendNotification = true;
+
                 solvedGrievanceRoot = FirebaseDatabase.getInstance();
                 solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
                         .child(grievanceItemKey);
                 solvedGrievanceRef.removeValue();
                 Log.d("On progress", "Under Review working");
-            }else if(grievanceStatusField.getText().toString().equals("Rejected")){
+            } else if (grievanceStatusField.getText().toString().equals("Rejected") && !grievanceStatus[0].equals("Rejected")) {
                 HashMap grievanceStatusHash = new HashMap();
                 grievanceStatusHash.put("status", "Rejected");
 
                 ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
                 ref2.child(grievanceItemKey).updateChildren(grievanceStatusHash);
 
+                sendNotification = true;
+
                 DatabaseReference rejectedGrievanceAddRef = FirebaseDatabase.getInstance().getReference("Rejected Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
                         .child(grievanceItemKey);
-                GrievanceModel solvedmodel=new GrievanceModel(grievanceDescriptionStr,grievanceDepartmentStr,grievanceEmailStr,"solved");
+                GrievanceModel solvedmodel = new GrievanceModel(grievanceDescriptionStr, grievanceDepartmentStr, grievanceEmailStr, "solved");
                 rejectedGrievanceAddRef.setValue(solvedmodel);
 
                 solvedGrievanceRoot = FirebaseDatabase.getInstance();
@@ -138,25 +158,45 @@ public class GrievanceDetail extends AppCompatActivity {
 
                 rejectedGrievanceRef = solvedGrievanceRoot.getReference("Unsolved Grievances").child(grievanceItemKey);
                 rejectedGrievanceRef.removeValue();
+                finish();
 
-
-                Log.d("Unresolved", "Unresolved removal"+rejectedGrievanceRef);
-            }else if(grievanceStatusField.getText().toString().equals("Solved")){
+                Log.d("Unresolved", "Unresolved removal" + rejectedGrievanceRef);
+            } else if (grievanceStatusField.getText().toString().equals("Solved") && !grievanceStatus[0].equals("Solved")) {
                 HashMap grievanceStatusHash = new HashMap();
                 grievanceStatusHash.put("status", "Solved");
 
                 ref.child(grievanceItemKey).updateChildren(grievanceStatusHash);
                 ref2.child(grievanceItemKey).updateChildren(grievanceStatusHash);
 
+                sendNotification = true;
+
                 solvedGrievanceRoot = FirebaseDatabase.getInstance();
                 solvedGrievanceRef = solvedGrievanceRoot.getReference("Solved Grievance").child(grievanceEmailStr.replaceAll("\\.", "%7"))
                         .child(grievanceItemKey);
-                GrievanceModel solvedmodel=new GrievanceModel(grievanceDescriptionStr,grievanceDepartmentStr,grievanceEmailStr,"solved");
+                GrievanceModel solvedmodel = new GrievanceModel(grievanceDescriptionStr, grievanceDepartmentStr, grievanceEmailStr, "solved");
                 solvedGrievanceRef.setValue(solvedmodel);
             }
-            Toast.makeText(this, "Status changed", Toast.LENGTH_SHORT).show();
-        });
 
+            if (sendNotification) {
+                Toast.makeText(this, "Status changed", Toast.LENGTH_SHORT).show();
+                FirebaseDatabase.getInstance().getReference().child("Registered Users/" + grievanceEmailStr.replaceAll("\\.", "%7")).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String grievanceUserToken = Objects.requireNonNull(snapshot.child("user_token").getValue()).toString();
+                        FcmNotificationsSender grievanceNotificationSender = new FcmNotificationsSender(grievanceUserToken, "IEA Grievance Update", "Your grievance is " + grievanceStatusField.getText().toString(), getApplicationContext(), GrievanceDetail.this);
+                        grievanceNotificationSender.SendNotifications();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+
+        });
 
 
 //        solvedBtn.setOnClickListener(view -> {
@@ -179,7 +219,7 @@ public class GrievanceDetail extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         dropdownInit();
     }

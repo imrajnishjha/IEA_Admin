@@ -137,13 +137,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_semi_bold"
-                        android:text="Expires on"
+                        android:text="Valid Upto"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/MembershipExpiryDate"
                         android:fontFamily="@font/poppins_semi_bold"
                         android:text="14th  Nov, 2023"
                         android:textColor="@color/white"
