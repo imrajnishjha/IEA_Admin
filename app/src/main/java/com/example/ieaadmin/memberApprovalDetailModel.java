@@ -1,13 +1,13 @@
 package com.example.ieaadmin;
 
 public class memberApprovalDetailModel {
-    String address, company_name, date_of_birth, date_of_membership, email, member_id, name, phone_number, purl, description;
+    String address, company_name, date_of_birth, date_of_membership, email, member_id, name, phone_number, purl, description, industry_type, brochure_url;
 
     memberApprovalDetailModel(){
 
     }
 
-    public memberApprovalDetailModel(String address, String company_name, String date_of_birth, String date_of_membership, String email, String member_id, String name, String phone_number, String purl, String description) {
+    public memberApprovalDetailModel(String address, String company_name, String date_of_birth, String date_of_membership, String email, String member_id, String name, String phone_number, String purl, String description, String industry_type, String brochure_url) {
         this.address = address;
         this.company_name = company_name;
         this.date_of_birth = date_of_birth;
@@ -18,6 +18,8 @@ public class memberApprovalDetailModel {
         this.phone_number = phone_number;
         this.purl = purl;
         this.description = description;
+        this.industry_type = industry_type;
+        this.brochure_url = brochure_url;
     }
 
     public String getAddress() {
@@ -98,5 +100,21 @@ public class memberApprovalDetailModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getIndustry_type() {
+        return industry_type;
+    }
+
+    public void setIndustry_type(String industry_type) {
+        this.industry_type = industry_type;
+    }
+
+    public String getBrochure_url() {
+        return brochure_url;
+    }
+
+    public void setBrochure_url(String brochure_url) {
+        this.brochure_url = brochure_url;
     }
 }

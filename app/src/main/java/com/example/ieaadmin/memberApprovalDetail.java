@@ -237,7 +237,7 @@ public class memberApprovalDetail extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        memberApprovalDetailModel approveMemberDirectoryDetailModel = new memberApprovalDetailModel(nullString, newCompany, nullString,approvalDate,newEmail,nullString,newName,newphoneno,uri.toString(),nullString);
+                        memberApprovalDetailModel approveMemberDirectoryDetailModel = new memberApprovalDetailModel(nullString, newCompany, nullString,approvalDate,newEmail,nullString,newName,newphoneno,uri.toString(),nullString, newIndustry, nullString);
                         memberDirectoryRef.child(newEmail.replaceAll("\\.", "%7")).setValue(approveMemberDirectoryDetailModel);
 
                         registrationDataRef.child(newEmail.replaceAll("\\.", "%7")).setValue(approveRegistrationData).addOnSuccessListener(new OnSuccessListener<Void>() {
