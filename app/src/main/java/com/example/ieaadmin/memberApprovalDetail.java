@@ -192,7 +192,7 @@ public class memberApprovalDetail extends AppCompatActivity {
                     public void onClick(View v) {
                         if(!RejectionReasonText.getText().toString().isEmpty()){
                             String rejectionReason = RejectionReasonText.getText().toString();
-                            sendRejectionEmail(rejectionReason);
+                            sendRejectionEmail(rejectionReason,newEmail);
                             memberDirectoryRoot = FirebaseDatabase.getInstance();
                             tempRegistrationData = memberDirectoryRoot.getReference("Temp Registry").child(newEmail.replaceAll("\\.", "%7"));
                             tempRegistrationData.removeValue();
@@ -280,7 +280,7 @@ public class memberApprovalDetail extends AppCompatActivity {
         }
     }
     @SuppressLint("IntentReset")
-    protected void sendRejectionEmail(String rejectionReason) {
+    protected void sendRejectionEmail(String rejectionReason,String newEmail) {
 
 
         Log.i("Send email", "");
@@ -303,7 +303,7 @@ public class memberApprovalDetail extends AppCompatActivity {
     }
 
     public String autoPassowrd(String name){
-        String Alphabet="abcdefghijaklmnopqrstuvwxyz";
+        String Alphabet="a11b22c34d56e78f90g09h87i65j43a21k12l34m56n78o90p1q2r3s4t5u6v7w8xy0z";
         StringBuilder randomPass = new StringBuilder();
         Random random = new Random();
         int length =4;
