@@ -133,7 +133,7 @@ public class EventDetail extends AppCompatActivity {
             public void onActivityResult(Uri result) {
                 String destinationUri = new StringBuilder(UUID.randomUUID().toString()).append(".jpg").toString();
                 UCrop.of(result, Uri.fromFile(new File(getCacheDir(), destinationUri)))
-                        .withAspectRatio(2, 1)
+                        .withAspectRatio(4, 3)
                         .start(EventDetail.this, 2);
             }
         });
