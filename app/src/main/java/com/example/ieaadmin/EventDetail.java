@@ -264,19 +264,19 @@ public class EventDetail extends AppCompatActivity {
 
         switch (i) {
             case 1:
-                return "Sunday";
-            case 2:
-                return "Monday";
-            case 3:
-                return "Tuesday";
-            case 4:
-                return "Wednesday";
-            case 5:
                 return "Thursday";
-            case 6:
+            case 2:
                 return "Friday";
-            case 7:
+            case 3:
                 return "Saturday";
+            case 4:
+                return "Sunday";
+            case 5:
+                return "Monday";
+            case 6:
+                return "Tuesday";
+            case 7:
+                return "Wednesday";
 
         }
         return "null";
