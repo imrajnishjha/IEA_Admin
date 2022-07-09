@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/explore_back_button"
+            android:id="@+id/exploreus_back_button"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="18dp"
@@ -217,7 +217,7 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/explore_iea_contact_us_cardView"
+            android:id="@+id/explore_us_contact_us_card"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"

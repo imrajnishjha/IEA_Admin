@@ -20,6 +20,12 @@
         android:theme="@style/Theme.IEAApp"
         tools:targetApi="28">
         <activity
+            android:name=".EventList"
+            android:exported="false" />
+        <activity
+            android:name=".EventDetail"
+            android:exported="false" />
+        <activity
             android:name=".MemberDirectoryDetail"
             android:exported="false" />
         <activity
@@ -74,7 +80,6 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
     </application>
 
 </manifest>

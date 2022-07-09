@@ -34,7 +34,7 @@ public class explore_menu extends AppCompatActivity {
     FirebaseAuth mAuth;
     TextView exploreUsername, descriptionUsername;
     ImageView logoutImg, userImage;
-    CardView  memberDirectoryCard, grievanceCard, newMembers,bbas;
+    CardView  memberDirectoryCard, grievanceCard, newMembers,bbas,event;
     Dialog exploreIeaContactDialog;
     DatabaseReference databaseReference;
     StorageReference storageProfilePicReference;
@@ -53,6 +53,7 @@ public class explore_menu extends AppCompatActivity {
         bbas = findViewById(R.id.bbas);
         exploreIeaContactDialog = new Dialog(this);
         userImage = findViewById(R.id.user_img);
+        event = findViewById(R.id.events);
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Registered Users");
@@ -106,7 +107,7 @@ public class explore_menu extends AppCompatActivity {
 
         newMembers.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, member_approval.class)));
 
-
+        event.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, EventList.class)));
 
         userImage.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, UserProfile.class)));
 
