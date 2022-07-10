@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,12 +34,12 @@ import java.util.Calendar;
 public class MemberDirectoryDetail extends AppCompatActivity {
     ImageView memberProfileImage;
     TextView memberProfileName, memberMembershipId, memberMembershipDate, memberContactNumber, memberDateOfBirth, memberEmailTxtView,
-            memberCompanyName, memberAddress, memberBio,memberMembershipExpiryDate,removeText,yesbtn,nobtn;
+            memberCompanyName, memberAddress, memberBio,memberMembershipExpiryDate,yesbtn,nobtn;
     DatabaseReference ref;
     FirebaseAuth mAuth;
     String currentUser,memberMembershipDateStr,memberMembershipIdStr,memberPhoneNumberStr,memberBioStr,memberPictureUrl,memberNameStr
             ,memberAddressStr,memberCompanyNameStr,memberEmailStr,memberDOBStr;
-    AppCompatButton removeBtn;
+    AppCompatButton removeBtn,momBtn,memberDetailBackBtn;
     Dialog confirmationDialog;
 
     @Override
@@ -52,6 +53,8 @@ public class MemberDirectoryDetail extends AppCompatActivity {
 
 
         memberProfileImage = findViewById(R.id.member_profile_image);
+        memberDetailBackBtn = findViewById(R.id.memberDetail_back_button);
+        memberDetailBackBtn.setOnClickListener(view -> finish());
         memberMembershipId = findViewById(R.id.member_membership_id);
         memberContactNumber = findViewById(R.id.member_contactNumber);
         memberDateOfBirth = findViewById(R.id.member_dateOfBirth);
@@ -63,7 +66,7 @@ public class MemberDirectoryDetail extends AppCompatActivity {
         memberBio = findViewById(R.id.member_bio);
         memberMembershipExpiryDate=findViewById(R.id.MembershipExpiryDate);
         removeBtn = findViewById(R.id.members_directory_Remove_button);
-        removeText = findViewById(R.id.members_directory_Remove_text);
+        momBtn = findViewById(R.id.MOM_btn);
 
         String coreItemKey = getIntent().getStringExtra("MemberItemKey");
 
@@ -107,6 +110,27 @@ public class MemberDirectoryDetail extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+        });
+
+        momBtn.setOnClickListener(view -> {
+            ProgressDialog progressDialog = new ProgressDialog (view.getContext());
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+            DatabaseReference memberRef = FirebaseDatabase.getInstance().getReference().child("Member of Month");
+            MemberofMonthModel newMOM = new MemberofMonthModel(memberNameStr, memberCompanyNameStr, memberPictureUrl);
+            memberRef.setValue(newMOM).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    progressDialog.dismiss();
+                    Toast.makeText(view.getContext(), "Done", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(view.getContext(), "Try again", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
         removeBtn.setOnClickListener(new View.OnClickListener() {

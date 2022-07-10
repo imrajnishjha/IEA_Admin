@@ -129,7 +129,7 @@ public class explore_menu extends AppCompatActivity {
 
         memberDirectoryCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MembersDirectory.class)));
 
-        MemberofmonthImg.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MemberOfMonth.class)));
+        //MemberofmonthImg.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, MemberOfMonth.class)));
 
         grievanceCard.setOnClickListener(view -> startActivity(new Intent(explore_menu.this, Grievance.class)));
 

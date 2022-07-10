@@ -22,28 +22,6 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="42dp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/members_directory_logout_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_logout"
-            app:layout_constraintEnd_toStartOf="@id/members_directory_logout_text"
-            app:layout_constraintTop_toTopOf="@id/members_directory_logout_text"
-            android:layout_marginEnd="6dp"/>
-
-        <TextView
-            android:id="@+id/members_directory_logout_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/log_out"
-            android:textColor="#0373F3"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="42dp"/>
-
         <TextView
             android:id="@+id/members_directory_text"
             android:layout_width="wrap_content"

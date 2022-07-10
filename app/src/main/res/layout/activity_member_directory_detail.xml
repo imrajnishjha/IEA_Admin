@@ -13,33 +13,34 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/members_directory_Remove_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_logout"
-            android:backgroundTint="#F94449"
-            app:layout_constraintEnd_toStartOf="@id/members_directory_Remove_text"
-            app:layout_constraintTop_toTopOf="@id/members_directory_Remove_text"
-            android:layout_marginEnd="6dp"/>
+            android:id="@+id/memberDetail_back_button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/back_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/members_directory_Remove_text"
+            android:id="@+id/MemberDetail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remove"
-            android:textColor="#F94449"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/poppins_semi_bold"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="30dp"/>
+            android:text="Member Profile"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            app:layout_constraintStart_toEndOf="@id/memberDetail_back_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/member_profile_image_cardView"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="65dp"
             app:cardCornerRadius="60dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -337,6 +338,47 @@
             android:layout_marginEnd="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="8dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/MOM_btn"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/button_style_black_smaller"
+            android:fontFamily="@font/inter_semi_bold"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="M.O.M"
+            android:layout_marginStart="24dp"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="#F5F5F5"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/member_bio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/members_directory_Remove_button"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/button_style_black_smaller"
+            android:fontFamily="@font/inter_semi_bold"
+            android:backgroundTint="#212121"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="24dp"
+            android:text="Reject"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="#F94449"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/member_bio"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
