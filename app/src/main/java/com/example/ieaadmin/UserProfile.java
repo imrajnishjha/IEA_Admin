@@ -54,6 +54,7 @@ public class UserProfile extends AppCompatActivity {
 
     DatabaseReference ref = database.getReference("Registered Users/" + userEmailConverted);
 
+
     ImageView userProfileImage;
     TextView userProfileName, userMembershipId, userMembershipDate,userMembershipExpiryDate;
     EditText userContactNumberEdtTxt, userDateOfBirthEdtTxt, userEmailEdtTxt, userCompanyNameEdtTxt, userAddressEdtTxt;
@@ -95,6 +96,7 @@ public class UserProfile extends AppCompatActivity {
                         .into(userProfileImage);
             }
         });
+
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override

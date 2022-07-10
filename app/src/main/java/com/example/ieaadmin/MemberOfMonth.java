@@ -1,43 +1,42 @@
 package com.example.ieaadmin;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ieaadmin.MembersDirectoryAdapter;
-import com.example.ieaadmin.MembersDirectoryModel;
+import android.content.Context;
+import android.os.Bundle;
+import android.util.AttributeSet;
+import android.util.Log;
+
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MembersDirectory extends AppCompatActivity{
-
-    RecyclerView memberDirectoryRecyclerView;
-    AppCompatButton memberDirectoryBackButton;
-    MembersDirectoryAdapter memberDirectoryAdapter;
-    FirebaseRecyclerOptions<MembersDirectoryModel> options;
+public class MemberOfMonth extends AppCompatActivity {
+    RecyclerView membersRV;
+    AppCompatButton MOMbackBtn;
+    FirebaseRecyclerOptions options;
+    MemberOfMonthAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_members_directory);
+        setContentView(R.layout.activity_member_of_month);
 
-        memberDirectoryRecyclerView = (RecyclerView) findViewById(R.id.members_directory_recycler_view);
-        memberDirectoryRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        memberDirectoryBackButton = findViewById(R.id.members_directory_back_button);
+        membersRV = findViewById(R.id.MOM_recycler_view);
+        membersRV.setLayoutManager(new WrapContentLinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+
+        MOMbackBtn = findViewById(R.id.MOM_back_button);
+        MOMbackBtn.setOnClickListener(view -> finish());
 
         options = new FirebaseRecyclerOptions.Builder<MembersDirectoryModel>()
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("Registered Users"), MembersDirectoryModel.class)
                 .build();
+        adapter = new MemberOfMonthAdapter(options);
+        membersRV.setAdapter(adapter);
 
-        memberDirectoryAdapter = new MembersDirectoryAdapter(options);
-        memberDirectoryRecyclerView.setAdapter(memberDirectoryAdapter);
-        memberDirectoryBackButton.setOnClickListener(view -> finish());
+
     }
 
     public class WrapContentLinearLayoutManager extends LinearLayoutManager {
@@ -66,13 +65,6 @@ public class MembersDirectory extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
-        memberDirectoryAdapter.startListening();
+        adapter.startListening();
     }
-
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        memberDirectoryAdapter.stopListening();
-//    }
-
 }

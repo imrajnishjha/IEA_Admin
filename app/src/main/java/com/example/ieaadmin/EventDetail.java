@@ -117,8 +117,7 @@ public class EventDetail extends AppCompatActivity {
         Timelistner = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                StringBuilder time = new StringBuilder(i);
-                time.append(i+":"+i1);
+                String time = timeFormatter(i,i1);
                 EventTime.setText(time);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(EventDetail.this,
                         android.R.style.Theme_Material_Dialog_Alert, Datelistner,year,month,day);
@@ -280,5 +279,55 @@ public class EventDetail extends AppCompatActivity {
 
         }
         return "null";
+    }
+
+    public String timeFormatter(int hour,int min){
+        StringBuilder Time = new StringBuilder();
+        if (hour<12) {
+            if(hour<1){
+                if(min<10){
+                    Time.append("12:0"+min+"AM");
+                } else {
+                    Time.append("12:"+min+"AM");
+                }
+            } else if(hour<10){
+                if(min<10){
+                    Time.append("0"+hour+":0"+min+"AM");
+                } else {
+                    Time.append("0"+hour+":"+min+"AM");
+                }
+            } else {
+                if(min<10){
+                    Time.append(hour+":0"+min+"AM");
+                } else {
+                    Time.append(hour+":"+min+"AM");
+                }
+            }
+        } else {
+            if(hour==12){
+                if(min<10){
+                    Time.append("12:0"+min+"PM");
+                } else {
+                    Time.append("12:"+min+"PM");
+                }
+            } else {
+                hour=hour-12;
+                if(hour<10){
+                    if(min<10){
+                        Time.append("0"+hour+":0"+min+"PM");
+                    } else {
+                        Time.append("0"+hour+":"+min+"PM");
+                    }
+                } else {
+                    if(min<10){
+                        Time.append(hour+":0"+min+"PM");
+                    } else {
+                        Time.append(hour+":"+min+"PM");
+                    }
+                }
+
+            }
+        }
+        return Time.toString();
     }
 }

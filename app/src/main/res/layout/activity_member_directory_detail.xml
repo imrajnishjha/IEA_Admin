@@ -12,6 +12,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/members_directory_Remove_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_logout"
+            android:backgroundTint="#F94449"
+            app:layout_constraintEnd_toStartOf="@id/members_directory_Remove_text"
+            app:layout_constraintTop_toTopOf="@id/members_directory_Remove_text"
+            android:layout_marginEnd="6dp"/>
+
+        <TextView
+            android:id="@+id/members_directory_Remove_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove"
+            android:textColor="#F94449"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="30dp"/>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/member_profile_image_cardView"
             android:layout_width="120dp"

@@ -20,6 +20,9 @@
         android:theme="@style/Theme.IEAApp"
         tools:targetApi="28">
         <activity
+            android:name=".MemberOfMonth"
+            android:exported="false" />
+        <activity
             android:name=".EventList"
             android:exported="false" />
         <activity

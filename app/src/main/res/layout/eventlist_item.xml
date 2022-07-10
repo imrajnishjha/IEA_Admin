@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="110dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
@@ -54,7 +54,7 @@
 
         <TextView
             android:layout_width="1.5dp"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:id="@+id/EventListLine"
             android:background="@color/different_black"
             android:layout_marginTop="10dp"
@@ -89,9 +89,9 @@
 
         <TextView
             android:layout_width="130dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:id="@+id/EventListLocation"
-            android:hint="Caracas,Venezuela"
+            android:hint="Caracas,Venezuela dfkhjfgdj sgjlsd"
             android:textColorHint="@color/different_black"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/different_black"
@@ -107,7 +107,7 @@
 
         <TextView
             android:layout_width="1dp"
-            android:layout_height="20dp"
+            android:layout_height="35dp"
             android:id="@+id/EventListLocationLine"
             android:background="@color/different_black"
             app:layout_constraintStart_toEndOf="@id/EventListLocation"
@@ -121,11 +121,13 @@
             android:textColorHint="@color/different_black"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/different_black"
-            android:gravity="center"
+            android:gravity="start"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/EventListLocationLine"
-            app:layout_constraintTop_toTopOf="@id/EventListLocation"/>
+            app:layout_constraintBottom_toBottomOf="@id/EventListLocationLine"
+            app:layout_constraintTop_toTopOf="@id/EventListLocationLine"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="45dp"
