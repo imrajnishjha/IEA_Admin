@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,11 +45,12 @@ import java.util.Random;
 
 public class memberApprovalDetail extends AppCompatActivity {
 
-    TextView newMemberName,newMemberEmail,newMemberCompany,newMemberTurnover,newMemberIndustry,newMemberMembership,newMemberAmountLeft,newMemberContact,newMemberPaymentReceiver,newMemberEmailforAuth;
+    TextView newMemberName,newMemberEmail,newMemberCompany,newMemberTurnover,newMemberIndustry,newMemberMembership,
+            newMemberAmountLeft,newMemberContact,newMemberPaymentReceiver,newMemberEmailforAuth,verificationMail,popUpHeaderText;
     ImageView newMemberPayProof;
-    EditText newMemberPassforAuth,RejectionReasonText;
+    EditText newMemberPassforAuth,RejectionReasonText,verificationPass;
     DatabaseReference databaseReference;
-    AppCompatButton approvalbackbtn,approveBtn,authCreatebtn,rejectBtn,rejectionReasonbtn;
+    AppCompatButton approvalbackbtn,approveBtn,authCreatebtn,rejectBtn,rejectionReasonbtn,verificationBtn;
     FirebaseDatabase memberDirectoryRoot;
     DatabaseReference memberDirectoryRef,registrationDataRef,tempRegistrationData;
     StorageReference defaultProfilePicReference;
@@ -57,18 +60,24 @@ public class memberApprovalDetail extends AppCompatActivity {
 
     String nullString,email_address,password;
     Uri imageUri;
-    Dialog newMemberIdPassDialog,RejectionMailDialog;
+    Dialog newMemberIdPassDialog,RejectionMailDialog,VerificationDialog;
+    ProgressDialog approvingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_approval_detail);
 
+        approvingDialog = new ProgressDialog(this);
+        approvingDialog.setMessage("Approving...");
+
 
         defaultProfilePicReference = FirebaseStorage.getInstance().getReference();
         nullString="";
         newMemberIdPassDialog = new Dialog(this);
         RejectionMailDialog = new Dialog(this);
+        VerificationDialog = new Dialog(this);
+        mAuth = FirebaseAuth.getInstance();
 
 
 
@@ -152,18 +161,67 @@ public class memberApprovalDetail extends AppCompatActivity {
                 newMemberIdPassDialog.setContentView(view);
                 newMemberIdPassDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 newMemberIdPassDialog.show();
+                String currentUseremail = mAuth.getCurrentUser().getEmail();
+                Log.d("TAG0", "onSuccess: "+currentUseremail);
 
                 authCreatebtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mAuth = FirebaseAuth.getInstance();
+
                         if(!newMemberPassforAuth.getText().toString().isEmpty()) {
-                            mAuth.createUserWithEmailAndPassword(newEmail, newMemberPassforAuth.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                            LayoutInflater inflater2 = getLayoutInflater();
+                            View verifyView = inflater2.inflate(R.layout.newmemberpassword_popup, null);
+                            verificationMail = verifyView.findViewById(R.id.newApprove_member_email);
+                            verificationPass = verifyView.findViewById(R.id.newApprove_member_password);
+                            verificationBtn = verifyView.findViewById(R.id.create_password_btn);
+                            popUpHeaderText = verifyView.findViewById(R.id.id_pass_text);
+                            popUpHeaderText.setText("Enter Your Password");
+                            verificationMail.setText(currentUseremail);
+                            newMemberIdPassDialog.setContentView(verifyView);
+                            newMemberIdPassDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            newMemberIdPassDialog.show();
+
+                            verificationBtn.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onSuccess(AuthResult authResult) {
-                                    memberApproval();
+                                public void onClick(View view) {
+                                    if(verificationPass.getText().toString().isEmpty()){
+                                        verificationPass.setError("Please Enter Password");
+                                        verificationPass.requestFocus();
+                                    } else {
+                                        approvingDialog.show();
+                                        String currentUserPass = verificationPass.getText().toString();
+                                        mAuth.signInWithEmailAndPassword(currentUseremail,currentUserPass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                            @Override
+                                            public void onSuccess(AuthResult authResult) {
+                                                memberApproval();
+                                                mAuth.signInWithEmailAndPassword(currentUseremail,currentUserPass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                                    @Override
+                                                    public void onSuccess(AuthResult authResult) {
+                                                        approvingDialog.dismiss();
+                                                        finish();
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        approvingDialog.dismiss();
+                                                        Toast.makeText(memberApprovalDetail.this, "Some error occurred", Toast.LENGTH_SHORT).show();
+
+                                                    }
+                                                });
+
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                approvingDialog.dismiss();
+                                                verificationPass.setError("Enter Correct Password");
+                                                verificationPass.requestFocus();
+                                            }
+                                        });
+                                    }
                                 }
                             });
+
                         } else {
                             newMemberPassforAuth.setError("Please Enter Password");
                             newMemberPassforAuth.requestFocus();
@@ -192,7 +250,7 @@ public class memberApprovalDetail extends AppCompatActivity {
                     public void onClick(View v) {
                         if(!RejectionReasonText.getText().toString().isEmpty()){
                             String rejectionReason = RejectionReasonText.getText().toString();
-                            sendRejectionEmail(rejectionReason,newEmail);
+                            sendRejectionEmail(rejectionReason);
                             memberDirectoryRoot = FirebaseDatabase.getInstance();
                             tempRegistrationData = memberDirectoryRoot.getReference("Temp Registry").child(newEmail.replaceAll("\\.", "%7"));
                             tempRegistrationData.removeValue();
@@ -245,6 +303,8 @@ public class memberApprovalDetail extends AppCompatActivity {
                             public void onSuccess(Void unused) {
                                 tempRegistrationData.removeValue();
                                 sendAcceptanceEmail();
+                                String email = mAuth.getCurrentUser().getEmail();
+                                Log.d("TAG", "onSuccess: "+email);
                                 Toast.makeText(memberApprovalDetail.this, "Member Approved", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -253,7 +313,6 @@ public class memberApprovalDetail extends AppCompatActivity {
                 });
             }
         });
-        finish();
     }
 
     @SuppressLint("IntentReset")
@@ -280,7 +339,7 @@ public class memberApprovalDetail extends AppCompatActivity {
         }
     }
     @SuppressLint("IntentReset")
-    protected void sendRejectionEmail(String rejectionReason,String newEmail) {
+    protected void sendRejectionEmail(String rejectionReason) {
 
 
         Log.i("Send email", "");
@@ -303,7 +362,7 @@ public class memberApprovalDetail extends AppCompatActivity {
     }
 
     public String autoPassowrd(String name){
-        String Alphabet="a11b22c34d56e78f90g09h87i65j43a21k12l34m56n78o90p1q2r3s4t5u6v7w8xy0z";
+        String Alphabet="abcdefghijaklmnopqrstuvwxyz";
         StringBuilder randomPass = new StringBuilder();
         Random random = new Random();
         int length =4;
