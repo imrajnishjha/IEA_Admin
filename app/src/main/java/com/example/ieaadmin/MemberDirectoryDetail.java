@@ -2,6 +2,7 @@ package com.example.ieaadmin;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -200,8 +201,7 @@ public class MemberDirectoryDetail extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Toast.makeText(MemberDirectoryDetail.this, "Member Removed", Toast.LENGTH_SHORT).show();
-
-                                    finish();
+                                    startActivity(new Intent(getApplicationContext(),MembersDirectory.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                 }
                             });
                         }

@@ -198,7 +198,8 @@ public class memberApprovalDetail extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(AuthResult authResult) {
                                                         approvingDialog.dismiss();
-                                                        finish();
+                                                        Toast.makeText(memberApprovalDetail.this, "Approved", Toast.LENGTH_SHORT).show();
+                                                        startActivity(new Intent(getApplicationContext(),member_approval.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                                     }
                                                 }).addOnFailureListener(new OnFailureListener() {
                                                     @Override
@@ -254,7 +255,7 @@ public class memberApprovalDetail extends AppCompatActivity {
                             memberDirectoryRoot = FirebaseDatabase.getInstance();
                             tempRegistrationData = memberDirectoryRoot.getReference("Temp Registry").child(newEmail.replaceAll("\\.", "%7"));
                             tempRegistrationData.removeValue();
-                            finish();
+                            startActivity(new Intent(getApplicationContext(),member_approval.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
                         } else {
                             RejectionReasonText.setError("Reason can not be empty");
